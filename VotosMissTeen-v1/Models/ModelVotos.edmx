@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModelVotos.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelVotosStoreContainer">
+    <EntitySet Name="Fases" EntityType="ModelVotos.Store.Fases" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Votos" EntityType="ModelVotos.Store.Votos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Jurados" EntityType="ModelVotos.Store.Jurados" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Participantes" EntityType="ModelVotos.Store.Participantes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="JuradoVotos" Association="ModelVotos.Store.JuradoVotos">
+      <End Role="Jurado" EntitySet="Jurados" />
+      <End Role="Votos" EntitySet="Votos" />
+    </AssociationSet>
+    <AssociationSet Name="FaseVotos" Association="ModelVotos.Store.FaseVotos">
+      <End Role="Fase" EntitySet="Fases" />
+      <End Role="Votos" EntitySet="Votos" />
+    </AssociationSet>
+    <AssociationSet Name="ParticipanteVotos" Association="ModelVotos.Store.ParticipanteVotos">
+      <End Role="Participante" EntitySet="Participantes" />
+      <End Role="Votos" EntitySet="Votos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Fases">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Foto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NombreFase" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fecha" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Votos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Puntuacion" Type="float" Nullable="false" />
+    <Property Name="JuradoId" Type="int" Nullable="false" />
+    <Property Name="FaseId" Type="int" Nullable="false" />
+    <Property Name="ParticipanteId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Jurados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lugar" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Participantes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Foto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Edad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Departamento" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Clasificacion" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="JuradoVotos">
+    <End Role="Jurado" Type="ModelVotos.Store.Jurados" Multiplicity="1" />
+    <End Role="Votos" Type="ModelVotos.Store.Votos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jurado">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Votos">
+        <PropertyRef Name="JuradoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FaseVotos">
+    <End Role="Fase" Type="ModelVotos.Store.Fases" Multiplicity="1" />
+    <End Role="Votos" Type="ModelVotos.Store.Votos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fase">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Votos">
+        <PropertyRef Name="FaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ParticipanteVotos">
+    <End Role="Participante" Type="ModelVotos.Store.Participantes" Multiplicity="1" />
+    <End Role="Votos" Type="ModelVotos.Store.Votos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participante">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Votos">
+        <PropertyRef Name="ParticipanteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelVotos" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelVotosContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Fases" EntityType="ModelVotos.Fase" />
+          <EntitySet Name="Votos" EntityType="ModelVotos.Votos" />
+          <EntitySet Name="Jurados" EntityType="ModelVotos.Jurado" />
+          <EntitySet Name="Participantes" EntityType="ModelVotos.Participante" />
+          <AssociationSet Name="JuradoVotos" Association="ModelVotos.JuradoVotos">
+            <End Role="Jurado" EntitySet="Jurados" />
+            <End Role="Votos" EntitySet="Votos" />
+          </AssociationSet>
+          <AssociationSet Name="FaseVotos" Association="ModelVotos.FaseVotos">
+            <End Role="Fase" EntitySet="Fases" />
+            <End Role="Votos" EntitySet="Votos" />
+          </AssociationSet>
+          <AssociationSet Name="ParticipanteVotos" Association="ModelVotos.ParticipanteVotos">
+            <End Role="Participante" EntitySet="Participantes" />
+            <End Role="Votos" EntitySet="Votos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Fase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Foto" Type="String" Nullable="false" />
+          <Property Name="NombreFase" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Fecha" Type="String" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Votos" Relationship="ModelVotos.FaseVotos" FromRole="Fase" ToRole="Votos" />
+        </EntityType>
+        <EntityType Name="Votos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Puntuacion" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Jurado" Relationship="ModelVotos.JuradoVotos" FromRole="Votos" ToRole="Jurado" />
+          <Property Name="JuradoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fase" Relationship="ModelVotos.FaseVotos" FromRole="Votos" ToRole="Fase" />
+          <Property Name="FaseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Participante" Relationship="ModelVotos.ParticipanteVotos" FromRole="Votos" ToRole="Participante" />
+          <Property Name="ParticipanteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jurado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Lugar" Type="String" Nullable="false" />
+          <NavigationProperty Name="Votos" Relationship="ModelVotos.JuradoVotos" FromRole="Jurado" ToRole="Votos" />
+        </EntityType>
+        <EntityType Name="Participante">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Foto" Type="String" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Edad" Type="String" Nullable="false" />
+          <Property Name="Departamento" Type="String" Nullable="false" />
+          <Property Name="Clasificacion" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Votos" Relationship="ModelVotos.ParticipanteVotos" FromRole="Participante" ToRole="Votos" />
+        </EntityType>
+        <Association Name="JuradoVotos">
+          <End Type="ModelVotos.Jurado" Role="Jurado" Multiplicity="1" />
+          <End Type="ModelVotos.Votos" Role="Votos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jurado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votos">
+              <PropertyRef Name="JuradoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FaseVotos">
+          <End Type="ModelVotos.Fase" Role="Fase" Multiplicity="1" />
+          <End Type="ModelVotos.Votos" Role="Votos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votos">
+              <PropertyRef Name="FaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ParticipanteVotos">
+          <End Type="ModelVotos.Participante" Role="Participante" Multiplicity="1" />
+          <End Type="ModelVotos.Votos" Role="Votos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participante">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votos">
+              <PropertyRef Name="ParticipanteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelVotosStoreContainer" CdmEntityContainer="ModelVotosContainer">
+    <EntitySetMapping Name="Fases">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Fase)">
+        <MappingFragment StoreEntitySet="Fases">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="NombreFase" ColumnName="NombreFase" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Votos">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Votos)">
+        <MappingFragment StoreEntitySet="Votos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Puntuacion" ColumnName="Puntuacion" />
+          <ScalarProperty Name="JuradoId" ColumnName="JuradoId" />
+          <ScalarProperty Name="FaseId" ColumnName="FaseId" />
+          <ScalarProperty Name="ParticipanteId" ColumnName="ParticipanteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jurados">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Jurado)">
+        <MappingFragment StoreEntitySet="Jurados">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Lugar" ColumnName="Lugar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Participantes">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Participante)">
+        <MappingFragment StoreEntitySet="Participantes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Clasificacion" ColumnName="Clasificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

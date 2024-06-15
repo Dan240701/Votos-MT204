@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Miss Teen</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/Content/Image/icono.png" alt="Logo" style="width: 104px;height: 101px;position: relative;bottom: 4rem;">
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                @if (User.IsInRole("Admin"))
+                    {
+                    <ul class="nav navbar-nav">
+
+                        <li>@Html.ActionLink("Votos", "Details", "Votos")</li>
+                        <li>@Html.ActionLink("Jurados", "Index", "Jurados")</li>
+                        <li>@Html.ActionLink("Fases", "Index", "Fases")</li>
+                        <li>@Html.ActionLink("Votos", "ObtenerPuntuaciones", "Votos")</li>
+
+                    </ul>
+                    }
+                        @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -  UNAN-Managua</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
