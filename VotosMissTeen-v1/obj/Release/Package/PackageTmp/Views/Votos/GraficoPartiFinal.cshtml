@@ -1,0 +1,47 @@
+﻿@model IEnumerable<dynamic>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gráfico de Barras de Puntuaciones Finales</title>
+    <!-- Incluir referencias a Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <script>
+        // Obtener los datos del modelo
+        var data = @Html.Raw(Json.Encode(Model));
+
+        // Preparar etiquetas y datos para el gráfico
+        var participantes = data.map(item => item.Nombre.toString());
+        var puntuaciones = data.map(item => item.TotalPuntuacion);
+
+        // Configurar el gráfico
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: participantes,
+                datasets: [{
+                    label: 'Puntuación Final',
+                    data: puntuaciones,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color de las barras
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100 // Establecer el máximo valor del eje Y
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

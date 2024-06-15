@@ -1,0 +1,47 @@
+﻿@model VotosMissTeen_v1.Models.Votos
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    .votar {
+        text-align: center;
+        font-size: 26px;
+        padding-left: 2rem;
+        font-weight: bold;
+        width: 100px;
+        border-radius: 30px;
+    }
+</style>
+        @using (Html.BeginForm("Edit", "Votos", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+             {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h1>@Model.Participante.Nombre</h1>
+                        <h3>@Model.Participante.Departamento</h3>
+                        <img src="/Content/Image/@Model.Participante.Foto" style="width:300px; height:300px; border-radius:50%;" alt="Alternate Text" />
+                        <h3>@Model.Participante.Edad</h3>
+                    </div>
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="JuradoId" value="@Model.JuradoId" />
+                    <input type="hidden" name="FaseId" value="@Model.FaseId" />
+                    <input type="hidden" name="ParticipanteId" value="@Model.ParticipanteId" />
+
+                    <div class="nosexd">
+                        <input type="number" name="Puntuacion" class="votar" value="@Model.Puntuacion" />
+                    </div>
+            
+                    <input type="submit" value="Guardar cambios" class="btn-color1" style="bottom:0;width: 165px;margin: 23px;">
+            
+
+                </div>
+
+            }
+  
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

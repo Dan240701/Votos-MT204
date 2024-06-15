@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelVotosStoreContainer" CdmEntityContainer="ModelVotosContainer">
+    <EntitySetMapping Name="Fases">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Fase)">
+        <MappingFragment StoreEntitySet="Fases">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="NombreFase" ColumnName="NombreFase" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Votos">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Votos)">
+        <MappingFragment StoreEntitySet="Votos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Puntuacion" ColumnName="Puntuacion" />
+          <ScalarProperty Name="JuradoId" ColumnName="JuradoId" />
+          <ScalarProperty Name="FaseId" ColumnName="FaseId" />
+          <ScalarProperty Name="ParticipanteId" ColumnName="ParticipanteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jurados">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Jurado)">
+        <MappingFragment StoreEntitySet="Jurados">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Lugar" ColumnName="Lugar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Participantes">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelVotos.Participante)">
+        <MappingFragment StoreEntitySet="Participantes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Edad" ColumnName="Edad" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+          <ScalarProperty Name="Clasificacion" ColumnName="Clasificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

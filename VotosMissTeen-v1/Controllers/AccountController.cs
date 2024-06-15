@@ -392,7 +392,7 @@ namespace VotosMissTeen_v1.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login","Account" );
         }
 
         //

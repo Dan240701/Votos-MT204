@@ -20,6 +20,11 @@ namespace VotosMissTeen_v1.Controllers
                 //filtrar
                 string username = User.Identity.GetUserName();
                 //&& v.FaseId == idfas
+                if(idfase == 3)
+            {
+                var votoes3 = db.Votos.Where(v => v.Jurado.Username == username && v.FaseId == idfase && v.Participante.Clasificacion==true).Include(v => v.Fase).Include(v => v.Jurado).Include(v => v.Participante);
+                return View(votoes3.ToList());
+            }
                 var votoes2 = db.Votos.Where(v => v.Jurado.Username == username && v.FaseId == idfase).Include(v => v.Fase).Include(v => v.Jurado).Include(v => v.Participante);
                 return View(votoes2.ToList());
         }
@@ -41,6 +46,7 @@ namespace VotosMissTeen_v1.Controllers
               //Total Participantes x Puntuacion 
                 var query = from v in db.Votos
                             join p in db.Participantes on v.ParticipanteId equals p.Id
+                            where v.Participante.Clasificacion ==true
                             group v by p.Nombre into g
                             orderby g.Sum(v => v.Puntuacion) descending
                             select new

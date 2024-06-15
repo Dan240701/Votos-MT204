@@ -6,6 +6,7 @@ using VotosMissTeen_v1.Models;
 
 namespace VotosMissTeen_v1.Controllers
 {
+    [Authorize]
     public class FasesController : Controller
     {
         private ModelVotosContainer db = new ModelVotosContainer();
@@ -13,7 +14,7 @@ namespace VotosMissTeen_v1.Controllers
         // GET: Fases
         public ActionResult Index()
         {
-            return View(db.Fases.ToList());
+            return View(db.Fases.ToList().Where(f => f.Estado == true));
         }
 
         // GET: Fases/Details/5
