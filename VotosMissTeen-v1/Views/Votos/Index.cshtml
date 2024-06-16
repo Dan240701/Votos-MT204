@@ -12,8 +12,8 @@
     }
 
     .imagen2x {
-        width: 1674px;
-        height: 60vh;
+        width: 100%;
+        height: 29vh;
         object-fit: cover;
         opacity: 0.2;
     }
@@ -24,7 +24,7 @@
         text-align: center;
         left: 0;
         right: 0;
-        height: 60vh;
+        height: 29vh;
     }
 
     .descri {
@@ -44,7 +44,6 @@
         color: white;
         font-size: 48px;
         font-weight: 700;
-        left: -52rem;
         position: relative;
         word-wrap: break-word;
     }
@@ -64,7 +63,7 @@
 
     .InforFase {
         position: relative;
-        bottom: 42rem;
+        bottom: 18rem;
     }
 
     .participantesxD {
@@ -78,7 +77,7 @@
     }
 
     .participantesInfo {
-        top: 50rem;
+        top: 24rem;
         left: -20rem;
         padding: 30px;
         position: relative;
@@ -101,7 +100,7 @@
         width: 150px;
         height: 150px;
         border-radius: 10%;
-        object-fit: cover;
+        object-fit: fill;
     }
 
     .particontainer {
@@ -138,7 +137,7 @@
             <p id="dept">@item.Participante.Departamento</p>
             @if (item.Puntuacion > 0)
             {
-                <h3 style="font-weight: bold; color: red;">Calificada</h3>
+                <p style="font-weight: bold; color: red; font-size:28px;">Calificada</p>
                 <button class="btn-details" data-id="@item.Id">Votar</button>
 
             }
@@ -206,11 +205,11 @@
 
         $.ajax({
             type: "GET",
-            url: `/Votos/ObtenerInfoFase?idfase= ${idfase}`,
+            url: `./Votos/ObtenerInfoFase?idfase= ${idfase}`,
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                    var des = $("#des").text(data.Descripcion);
+                    var des = $("#nombre").text(data.NombreFase);
                     var foto = $("#foto1").attr("src", "/Content/Image/" + data.Foto);
             },
             error: function (error) {

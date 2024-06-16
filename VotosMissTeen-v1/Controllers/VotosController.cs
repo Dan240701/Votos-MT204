@@ -10,8 +10,10 @@ using VotosMissTeen_v1.Models;
 
 namespace VotosMissTeen_v1.Controllers
 {
+        [Authorize]
     public class VotosController : Controller
     {
+
         private ModelVotosContainer db = new ModelVotosContainer();
 
         // GET: Votos
@@ -42,72 +44,35 @@ namespace VotosMissTeen_v1.Controllers
 
         //NUEVO METODO ADAPTADO
         public ActionResult ObtenerPuntuaciones()
-        {      
-              //Total Participantes x Puntuacion 
-                var query = from v in db.Votos
-                            join p in db.Participantes on v.ParticipanteId equals p.Id
-                            where v.Participante.Clasificacion ==true
-                            group v by p.Nombre into g
-                            orderby g.Sum(v => v.Puntuacion) descending
-                            select new
-                            {
-                                Nombre = g.Key,
-                                TotalPuntuacion = g.Sum(v => v.Puntuacion)
-                            };
+        {
+            var query = db.Participantes
+       .Where(p => p.Clasificacion) // Filtrar por Clasificacion = true
+       .Select(p => new
+       {
+           ParticipanteId = p.Id,
+           Participante = p.Nombre,
+           Top6 = p.Clasificacion,
+           PuntuacionFase1 = db.Votos
+                               .Where(v => v.FaseId == 1 && v.ParticipanteId == p.Id)
+                               .Sum(v => (int?)v.Puntuacion) ?? 0,
+           PuntuacionFase2 = Math.Round(db.Votos
+                                           .Where(v => v.FaseId == 2 && v.ParticipanteId == p.Id)
+                                           .Average(v => (double?)v.Puntuacion) * 1.5 ?? 0, 2),
+           PuntuacionFase3 = Math.Round(db.Votos
+                                           .Where(v => v.FaseId == 3 && v.ParticipanteId == p.Id)
+                                           .Average(v => (double?)v.Puntuacion) * 1.5 ?? 0, 2),
+       })
+       .Select(p => new
+       {
+           p.ParticipanteId,
+           p.Participante,
+           p.Top6,
+           PuntuacionFase1 = p.PuntuacionFase1,
+           PuntuacionFase2 = p.PuntuacionFase2,
+           PuntuacionFase3 = p.PuntuacionFase3,
+           PuntuacionTotal = Math.Round(p.PuntuacionFase1 + p.PuntuacionFase2 + p.PuntuacionFase3, 2)
+       });
 
-                var resultados = query.ToList();
-
-            // Definir la lista para almacenar las puntuaciones finales
-            var puntuacionesFinales = new List<(int IdParticipante, double PuntuacionFinal)>();
-
-            // Iterar sobre los resultados de la consulta
-            foreach (var item in puntuacionesFinales)
-            {
-                var participanteid= item.IdParticipante;
-
-                // Obtener la puntuación del Evento Popularidad (valor único entre 0 y 100)
-                var puntuacionPopularidad = db.Votos
-                    .Where(p => p.ParticipanteId == participanteid && p.FaseId == 1)
-                    .FirstOrDefault()?.Puntuacion ?? 0;
-
-                // Obtener las puntuaciones del Evento Traje de Gala (6 jurados, cada uno califica entre 0 y 10)
-                var puntuacionesGala = db.Votos
-                    .Where(p => p.ParticipanteId == participanteid && p.FaseId == 2)
-                    .Select(p => p.Puntuacion)
-                    .ToList();
-
-                // Calcular el promedio de las puntuaciones del Evento Traje de Gala y escalar a 0-100
-                var promedioGala = puntuacionesGala.Any() ? puntuacionesGala.Average() * 10 : 0;
-
-                // Obtener las puntuaciones del Evento Pregunta Final (6 jurados, cada uno califica entre 0 y 10)
-                var puntuacionesPregunta = db.Votos
-                    .Where(p => p.ParticipanteId == participanteid && p.FaseId == 3)
-                    .Select(p => p.Puntuacion)
-                    .ToList();
-
-                // Calcular el promedio de las puntuaciones del Evento Pregunta Final y escalar a 0-100
-                var promedioPregunta = puntuacionesPregunta.Any() ? puntuacionesPregunta.Average() * 10 : 0;
-
-                // Calcular la puntuación final combinando las puntuaciones ponderadas de cada evento
-                var puntuacionFinal = (puntuacionPopularidad * 0.70) +
-                                      (promedioGala * 0.15) +
-                                      (promedioPregunta * 0.15);
-
-                // Agregar la puntuación final junto con el ID del participante a la lista
-                puntuacionesFinales.Add((item.IdParticipante, puntuacionFinal));
-            }
-
-            // Ordenar la lista por puntuación final en orden descendente
-            var top6 = puntuacionesFinales
-                .OrderByDescending(pf => pf.PuntuacionFinal)
-                .Take(6)
-                .ToList();
-
-            // Imprimir los resultados de los primeros 6 participantes
-            foreach (var resultado in top6)
-            {
-                Console.WriteLine($"ID Participante: {resultado.IdParticipante}, Puntuación Final: {resultado.PuntuacionFinal}");
-            }
 
             return View("GraficoPartiFinal", query);
 

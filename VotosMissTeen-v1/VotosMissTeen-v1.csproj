@@ -239,6 +239,22 @@
     <Content Include="Content\Image\participante7.png" />
     <Content Include="Content\Image\participante8.png" />
     <Content Include="Content\Image\participante9.png" />
+    <Content Include="Content\Image\perfil1.png" />
+    <Content Include="Content\Image\perfil10.png" />
+    <Content Include="Content\Image\perfil11.png" />
+    <Content Include="Content\Image\perfil12.png" />
+    <Content Include="Content\Image\perfil13.png" />
+    <Content Include="Content\Image\perfil14.png" />
+    <Content Include="Content\Image\perfil15.png" />
+    <Content Include="Content\Image\perfil16.png" />
+    <Content Include="Content\Image\perfil2.png" />
+    <Content Include="Content\Image\perfil3.png" />
+    <Content Include="Content\Image\perfil4.png" />
+    <Content Include="Content\Image\perfil5.png" />
+    <Content Include="Content\Image\perfil6.png" />
+    <Content Include="Content\Image\perfil7.png" />
+    <Content Include="Content\Image\perfil8.png" />
+    <Content Include="Content\Image\perfil9.png" />
     <Content Include="Content\Image\portada.png" />
     <Content Include="Content\Image\trajefantasia.jpg" />
     <Content Include="Content\Styles.css" />
@@ -332,7 +348,6 @@
     <Content Include="Views\Votos\Edit.cshtml" />
     <Content Include="Views\Votos\Index.cshtml" />
     <Content Include="Views\Votos\GraficoPartiFinal.cshtml" />
-    <Content Include="Views\Votos\ObtenerPuntuaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

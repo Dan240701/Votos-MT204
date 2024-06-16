@@ -1,0 +1,93 @@
+﻿body {
+}
+/* Parte del Fases */
+#card-uwu {
+    position: relative;
+    background: linear-gradient(to top, #1E1E1E,#701C91, #67F1FB);
+    text-align: center;
+    border-radius: 30px;
+    height: 350px;
+    width: 500px;
+}
+
+.imagenxd {
+    border-radius: 30px;
+    width: 500px;
+    height: 350px;
+    object-fit: cover;
+    opacity: 0.2;
+}
+
+.inf {
+    position: absolute;
+    z-index: 9999;
+    left: 36px;
+    bottom: 125px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-color1 {
+    background: #ED008D;
+    padding: 10px;
+    border: none;
+    width: 120px;
+    font-weight: 700;
+    color: white;
+    border-radius: 30px;
+    position: relative;
+    bottom: -55px;
+}
+
+    .btn-color1:hover {
+        background: #67F1FB;
+    }
+
+.containerAA {
+    padding: 50px;
+    width: 1170px;
+    position: relative;
+    left: 18px;
+}
+
+.container-xd {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    overflow-x: scroll;
+    width: 1039px;
+    grid-gap: 20px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+    font-weight: bold;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: #67F1FB;
+    }
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.navbar-inverse {
+    background-color: #ed008d;
+    border-color: #ed008d;
+}
+
+.awa {
+    position: relative;
+    left: 202px;
+    width: 30px;
+    border-radius: 30px;
+    height: 30px;
+    background: #91f291;
+    display: inline-block;
+}
+
+/* Parte de los votos avl*/

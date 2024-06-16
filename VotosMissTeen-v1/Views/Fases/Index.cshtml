@@ -43,16 +43,22 @@
                 <div class="inf">
                     @if (item.Estado == true)
                     {
-                        <span class="awa">Activo</span>
+                        <span class="awa"></span>
                     }
                     else
                     {
-                        <span class="awa">Inactivo</span>
+                        <span class="awa" style="background =#e95a1b;"></span>
                     }
                     <h2> Fase </h2>
                     <h1>@item.NombreFase</h1>
-
-                    <button class="btn-color1" onclick="location.href='@Url.Action("Index","Votos",new { idfase = item.Id})'">Entrar</button>
+                    @if (User.IsInRole("Admin"))
+                        {
+                            <button class="btn-color1" onclick="location.href='@Url.Action("Edit","Fases",new { Id = item.Id})'">Entrar</button>
+                        }
+                        else
+                        {
+                            <button class="btn-color1" onclick="location.href='@Url.Action("Index","Votos",new { idfase = item.Id})'">Entrar</button>
+                        }
 
                 </div>
             </div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cd97c78e13fb479f8c2a457cbbb9e99c" Name="Diagram1" >
+        <EntityTypeShape EntityType="ModelVotos.Fase" Width="1.5" PointX="7.875" PointY="1.25" FillColor="SlateBlue" />
+        <EntityTypeShape EntityType="ModelVotos.Votos" Width="1.5" PointX="5.5" PointY="1.25" FillColor="SlateBlue" />
+        <EntityTypeShape EntityType="ModelVotos.Jurado" Width="1.5" PointX="2.875" PointY="1.25" FillColor="SlateBlue" />
+        <EntityTypeShape EntityType="ModelVotos.Participante" Width="1.5" PointX="5.625" PointY="4.5" FillColor="SlateBlue" />
+        <AssociationConnector Association="ModelVotos.JuradoVotos" />
+        <AssociationConnector Association="ModelVotos.FaseVotos" />
+        <AssociationConnector Association="ModelVotos.ParticipanteVotos" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

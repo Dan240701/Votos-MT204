@@ -1,0 +1,221 @@
+﻿@model IEnumerable<VotosMissTeen_v1.Models.Votos>
+
+@{
+    ViewBag.Title = "Votos";
+}
+
+<style>
+    .fase {
+        font-size: 33px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .imagen2x {
+        width: 1674px;
+        height: 29vh;
+        object-fit: cover;
+        opacity: 0.2;
+    }
+
+    .portada {
+        position: absolute;
+        background: linear-gradient(to top, #1E1E1E, #701C91, #67F1FB);
+        text-align: center;
+        left: 0;
+        right: 0;
+        height: 29vh;
+    }
+
+    .descri {
+        width: 620px;
+        text-align: left;
+        left: 55px;
+        top: 35px;
+        height: 120px;
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+        position: relative;
+        word-wrap: break-word;
+    }
+
+    .Titulo {
+        color: white;
+        font-size: 48px;
+        font-weight: 700;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .btn-details {
+        width: 17rem;
+        font-size: 21px;
+        border: none;
+        font-weight: bold;
+        color: white;
+        background: #ed008d;
+        padding: 6px;
+        border-radius: 30px;
+    }
+        .btn-details:hover {
+            background: #67F1FB;
+        }
+
+    .InforFase {
+        position: relative;
+        bottom: 18rem;
+    }
+
+    .participantesxD {
+        padding-top: 7rem;
+        width: 1495px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        overflow-y: auto;
+        display: grid;
+        padding: 30px;
+        place-items: center;
+    }
+
+    .participantesInfo {
+        top: 24rem;
+        left: -20rem;
+        padding: 30px;
+        position: relative;
+        width: 1495px;
+        text-align: center;
+        background: white;
+    }
+
+    #dept {
+        font-weight: 700;
+        color: #bd63e2;
+        font-size: 1.4em;
+    }
+
+    .relativoxd {
+        font-weight: 700;
+    }
+
+    .imagenParti {
+        width: 150px;
+        height: 150px;
+        border-radius: 10%;
+        object-fit: fill;
+    }
+
+    .particontainer {
+        width: 284px;
+        height: 375px;
+        background: #E6E6E6;
+        display: flex;
+        flex-direction: column;
+        border-radius: 30px;
+        margin: 20px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding:20px;
+    }
+</style>
+
+
+<div class="portada">
+    <img src="@Url.Content("~/Content/Image/")"  class="imagen2x"  id="foto1" alt="Alternate Text" />
+
+    .<div class="InforFase">
+        <div class="Titulo" id="nombre"></div>
+    </div>
+</div>
+<div class="participantesInfo">
+    <h2 class="relativoxd">Concursantes</h2>
+    <div class="participantesxD">
+        @foreach (var item in Model)
+        {
+        <div class="particontainer">
+            <img src="~/Content/Image/@item.Participante.Foto" class="imagenParti" id="foto" alt="Alternate Text" />
+            <h2 id="nombre">@item.Participante.Nombre</h2>
+            <p id="dept">@item.Participante.Departamento</p>
+            @if (item.Puntuacion > 0)
+            {
+                <p style="font-weight: bold; color: red; font-size:28px;">Calificada</p>
+                <button class="btn-details" data-id="@item.Id">Votar</button>
+
+            }
+            else
+            {
+                <button class="btn-details" data-id="@item.Id">Votar</button>
+            }
+        </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!-- Contenido del modal se carga dinámicamente -->
+                        <div class="modal-body" id="modalContent">
+                            <!-- Aquí se cargará el contenido dinámico -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+      
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        // Obtener la URL actual
+        var urlString = window.location.href;
+
+        // Crear un objeto URL
+        var url = new URL(urlString);
+
+        // Obtener el valor del parámetro idfase
+        var idfase = url.searchParams.get("idfase");
+
+        // Convertir idfase a un número entero si es necesario
+        idfase = parseInt(idfase);
+
+        console.log(idfase);
+
+        // Manejar clic en el botón para abrir el modal
+            $(".btn-details").click(function () {
+                var id = $(this).data("id");
+                // Realizar una petición AJAX para obtener el contenido de la acción del controlador
+                $.ajax({
+                    url: '@Url.Action("ModalContent", "Votos")',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (result) {
+                        // Insertar el contenido obtenido en el modal
+                        $("#modalContent").html(result);
+                        // Mostrar el modal
+                        $("#myModal").modal("show");
+                    },
+                    error: function () {
+                        alert("Ha ocurrido un error al cargar el contenido.");
+                    }
+                });
+            });
+
+        $.ajax({
+            type: "GET",
+            url: `/Votos/ObtenerInfoFase?idfase= ${idfase}`,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                    var des = $("#nombre").text(data.NombreFase);
+                    var foto = $("#foto1").attr("src", "/Content/Image/" + data.Foto);
+            },
+            error: function (error) {
+                console.error("Error al obtener datos: ", error);
+            }
+        });
+    });
+
+</script>

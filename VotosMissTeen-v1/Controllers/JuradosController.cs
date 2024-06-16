@@ -6,6 +6,8 @@ using VotosMissTeen_v1.Models;
 
 namespace VotosMissTeen_v1.Controllers
 {
+    [Authorize]
+
     public class JuradosController : Controller
     {
         private ModelVotosContainer db = new ModelVotosContainer();

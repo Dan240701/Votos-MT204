@@ -82,6 +82,12 @@
 
 .awa {
     position: relative;
-    left: 170px;
+    left: 202px;
+    width: 30px;
+    border-radius: 30px;
+    height: 30px;
+    background: #91f291;
+    display: inline-block;
 }
+
 /* Parte de los votos avl*/

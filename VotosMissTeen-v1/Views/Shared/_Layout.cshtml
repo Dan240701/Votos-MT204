@@ -25,14 +25,13 @@
             <div class="navbar-collapse collapse">
                 @if (User.IsInRole("Admin"))
                     {
-                    <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav">
+                                <li>@Html.ActionLink("Participantes", "Index", "Participantes")</li>
+                                <li>@Html.ActionLink("Jurados", "Index", "Jurados")</li>
+                                <li>@Html.ActionLink("Fases", "Index", "Fases")</li>
+                                <li>@Html.ActionLink("Estadisticas", "ObtenerPuntuaciones", "Votos")</li>
 
-                        <li>@Html.ActionLink("Votos", "Details", "Votos")</li>
-                        <li>@Html.ActionLink("Jurados", "Index", "Jurados")</li>
-                        <li>@Html.ActionLink("Fases", "Index", "Fases")</li>
-                        <li>@Html.ActionLink("Votos", "ObtenerPuntuaciones", "Votos")</li>
-
-                    </ul>
+                            </ul>
                     }
                         @Html.Partial("_LoginPartial")
             </div>
