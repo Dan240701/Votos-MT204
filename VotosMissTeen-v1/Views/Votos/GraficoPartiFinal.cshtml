@@ -81,7 +81,6 @@
             <canvas id="myChart" width="400" height="300"></canvas>
         </div>
 
-
         <div class="table-container">
             <table class="table">
                 <thead>
@@ -156,7 +155,9 @@
             var fila = document.createElement('tr');
             if (item.Top6 == 1) {
                 fila.innerHTML = `
-                 <td>${item.Participante}</td>
+                 <td>
+                       <a href="/Participantes/Details/${item.ParticipanteId}">${item.Participante}</a>
+                 </td>
                 <td>${item.PuntuacionFase1}</td>
                 <td>${item.PuntuacionFase2}</td>
                 <td>${item.PuntuacionFase3}</td>

@@ -3,6 +3,13 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
+    .container .body-content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+</style>
 
 <h2>Details</h2>
 
@@ -40,3 +47,41 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@if (Model.Id == 1)
+{
+    <table class="table">
+        <tr>
+            <th>Partcipante</th>
+            <th>Puntaje</th>
+        </tr>
+        @foreach (var item in Model.Votos.Where(x => x.FaseId == 1))
+        {
+            <tr>
+                <th>@item.Participante.Nombre</th>
+                <th>@item.Puntuacion</th>
+            </tr>
+        }
+    </table> }
+else
+{
+
+    for (int i = 2; i < 4; i++)
+    {
+        <hr />
+        <h2>Fase @i</h2>
+        <table class="table">
+            <tr>
+                <th>Partcipante</th>
+                <th>Puntaje</th>
+            </tr>
+            @foreach (var item in Model.Votos.Where(x => x.FaseId == i))
+            {
+                <tr>
+                    <th>@item.Participante.Nombre</th>
+                    <th>@item.Puntuacion</th>
+                </tr>
+            }
+        </table>
+    }
+}
