@@ -86,8 +86,10 @@
                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             </div>
 
-            <input type="hidden" name="Password" value="Miss.2024" />
-         
+            <div class="input-box">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
 
             <button type="submit" class="btn-color1" style="bottom:0; width:167px; font-weight:800; ">Iniciar sesión</button>
         }
